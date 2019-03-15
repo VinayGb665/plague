@@ -27,19 +27,28 @@ def report_plag_1(file1,file2):
    
     print("\nSdiff Version: ")
 
-    
+    print("ppppppp",file1)
     cmd = [ 'wc ', '-l', file1 ]
 
     diff_report['total_lc'] = subprocess.Popen( cmd, stdout=subprocess.PIPE ).communicate()[0].decode('utf-8')
+    cmd = [ 'wc ', '-l', file2 ]
+
+    lc_2 = subprocess.Popen( cmd, stdout=subprocess.PIPE ).communicate()[0].decode('utf-8').split(" ")[0].strip()
    
     diff_report['total_lc']=diff_report['total_lc'].split(" ")[0].strip()
+
+    total_lc=max(lc_2,diff_report['total_lc'])
+    
+
     # cmd = [ 'sdiff', '-b','-B','-s', sys.argv[1], sys.argv[2],'||','wc','-l' ]
     cmd = "sdiff -b -B -s   "+file1+" "+file2+ " | wc"
 
     # print("aaaaa",subprocess.Popen( cmd, shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE ).communicate()[0].decode('utf-8').strip().split(" "))
-    diff_report['similar_lc'] = int(subprocess.Popen( cmd, shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE ).communicate()[0].decode('utf-8').strip().split(" ")[0])
-    
-    diff_report['sim']=round(int(diff_report['similar_lc'])/int(diff_report['total_lc']),2)
+    diff_report['similar_lc'] = int(total_lc) - int(subprocess.Popen( cmd, shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE ).communicate()[0].decode('utf-8').strip().split(" ")[0])
+    try:
+        diff_report['sim']=round((int(diff_report['total_lc'])-int(diff_report['similar_lc']))/int(diff_report['total_lc']),2)
+    except:
+        diff_report['sim']=0
     
     pprint.pprint(diff_report)
     print("**************************\n")
@@ -56,10 +65,11 @@ def handle_multiple(argument_array):
         argument_array=os.listdir(argument_array[0])
 
         size=len(argument_array)
-
+        for i in range(0,size):
+            argument_array[i]=temp[0]+'/'+argument_array[i];
+    print(argument_array)
     init_array=np.zeros((size,size))
-    for i in range(0,size):
-        argument_array[i]=temp[0]+'/'+argument_array[i];
+
         #do_file(argument_array[i])
     
     
@@ -71,4 +81,4 @@ def handle_multiple(argument_array):
     print(init_array)
 
 #report_plag_1(sys.argv[1],sys.argv[2])
-handle_multiple(sys.argv[1:])
+#handle_multiple(sys.argv[1:])
