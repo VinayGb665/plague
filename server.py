@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
+    
     return '''<form id = "uploadbanner"  enctype="multipart/form-data" method = "post" action = "/a">
       <input id = "fileupload" name="file" type = "file" />
       <input type = "submit" value = "submit" id = "submit" />
