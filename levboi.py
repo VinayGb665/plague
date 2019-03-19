@@ -120,6 +120,7 @@ def handle_multiple(argument_array):
     print(init_array)
     print("\n Similarity matrix with levenShteins shit: \n")
     print(init_array2)
+    return (init_array,init_array2)
 
 #report_plag_1(sys.argv[1],sys.argv[2])
 #handle_multiple(sys.argv[1:])

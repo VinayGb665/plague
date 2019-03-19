@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import request,redirect
+from flask import request,redirect,render_template
 from levboi import handle_multiple
 import os
 from zipfile import  ZipFile
@@ -7,16 +7,17 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    
-    return '''<form id = "uploadbanner"  enctype="multipart/form-data" method = "post" action = "/a">
-      <input id = "fileupload" name="file" type = "file" />
-      <input type = "submit" value = "submit" id = "submit" />
-</form>'''
+    return render_template('up.html')
+#     return '''<form id = "uploadbanner"  enctype="multipart/form-data" method = "post" action = "/a">
+#       <input id = "fileupload" name="file" type = "file" />
+#       <input type = "submit" value = "submit" id = "submit" />
+# </form>'''
 
-@app.route('/a', methods=['GET', 'POST'])
+@app.route('/postme', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        print("Aaaaaaaaaaaaaaaaa1")
+        print(request.__dict__)
+        
         # check if the post request has the file part
         #print(request.__dict__)
         if 'file' not in request.files:
@@ -39,8 +40,8 @@ def upload_file():
             zip.extractall('./tests')
             filename=os.path.join('./tests/', filename[:-4])
             print("OOPOPO",filename)
-            handle_multiple([filename])
-            return "ok uploaded now fo"
+            return render_template("base.html",data=handle_multiple([filename]))
+            
         else:
             return "AAAAAAAAA"
     
