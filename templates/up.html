@@ -17,21 +17,24 @@
 		
 		<style>
 		#file_list{
+			x-overflow:none;
+			y-overflow:none;
 			visibility:hidden;
-			width:400px;
-			height:400px;
-			position:absolute;
-			top:250px;
-			left:1300px;
+			width:20$;
+			height:20%;
+			position:relative;
+			top:20px;
+			left:20px;
 			background-color:#e8ecd5;
 			padding:10px;
 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 font-size:20px;
 		}
 		#file_wrap{
+			x-overflow:none;
 			position:relative;
 			top:200px;
-			left:300px;
+			left:10%;
 			width:900px;
 			height:500px;
 			background-color:#e8ecd5;
@@ -241,13 +244,13 @@ font-size:15px;
 
 </ul> </div>
 	<div id="file_wrap" >
-<img alt="Feature image" style="position:relative;top:200px;left:350px;"draggable="false" height="52" src="files-lg.svg" width="204">
+<img alt="Feature image" style="position:relative;top:200px;left:350px;"draggable="false" height="52" src="static/files-lg.svg" width="204">
 <div id="file">
         <form enctype="multipart/form-data" id="formwo" method="POST" action="/postme">
-		<textarea id="readme" name="desc" placeholder="Wt abt it"></textarea>
+		<textarea style="visibility: hidden;" id="readme" name="desc" placeholder="Wt abt it"></textarea>
 	
 		<input style="visibility:hidden;"  id="haha" name="file" type="file"/>
-		<input id="submit" type="submit"/>
+		<input id="submit" type="submit" style="position:relative;left:42%"/>
 	</form>	 
 </div>
 <a href=""  id="link">Click here to upload files</a>
