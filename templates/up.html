@@ -20,11 +20,11 @@
 			x-overflow:none;
 			y-overflow:none;
 			visibility:hidden;
-			width:20$;
+			width:20%;
 			height:20%;
 			position:relative;
-			top:20px;
-			left:20px;
+			top:5%;
+			left:10%;
 			background-color:#e8ecd5;
 			padding:10px;
 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -320,13 +320,7 @@ $.postJSON = function(url, data, callback) {
 
 $(document).ready(()=>{
     $("#formo").on('submit',(e)=>{
-        var filer = $("#haha").val()
-		var form = document.querySelector('#formo');
-		var formData = new FormData(form);
-        e.preventDefault();
-        $.postJSON('/postme',formData,(data)=>{
-            console.log(data);
-        })
+        $("#formo").reset()
 
     })
 })

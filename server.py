@@ -1,19 +1,18 @@
 from flask import Flask
-from flask import request,redirect,render_template
+from flask import request,redirect,render_template,session,jsonify
 from verbatim_handler import handle_multiple
 import os
 import pandas as pd
 from zipfile import  ZipFile
-from html_comps import html_header,html_footer
+from services.db_con import login as check_login
+from services.db_con import *
+from html_comps import *
 app = Flask(__name__)
+app.secret_key = 'any random string';
 
 @app.route('/')
 def hello_world():
-    return html_header+render_template('up.html')+html_footer
-#     return '''<form id = "uploadbanner"  enctype="multipart/form-data" method = "post" action = "/a">
-#       <input id = "fileupload" name="file" type = "file" />
-#       <input type = "submit" value = "submit" id = "submit" />
-# </form>'''
+    return html_header+html_mid+render_template('up.html')+html_footer
 
 @app.route('/postme', methods=['GET', 'POST'])
 def upload_file():
@@ -44,12 +43,83 @@ def upload_file():
             filename=os.path.join('./tests/', filename[:-4])
             #print("OOPOPO",filename)
             handled=handle_multiple([filename])
-            df =pd.DataFrame(handled[0],index=handled[2],columns=handled[2])
+            df =pd.DataFrame(handled[0],index=handled[1],columns=handled[1])
+            df.astype('int32')
             html = df.to_html()
             #print(html_footer)
-            return html_header+html+html_footer
+            return html_header+html_mid+our_table(html)+html_footer+script('report')
             
             
         else:
             return "AAAAAAAAA"
+
+@app.route('/login', methods=['GET', 'POST'])
+
+
+def login():
+    if request.method == 'GET':
+        return html_header+style('login')+html_mid+html_login+html_footer+script('admin_login')
+    elif request.method == 'POST':
+        if check_login(request.form):
+            session['username'] = request.form['username']
+            return 'True'
+        else:
+            return 'False'
+
+
+
+@app.route('/admin',methods=['GET', 'POST'])
+def admin_home():
+    # print(session['username'])
+    return html_header+style('admin_page')+html_mid+html_admin_page+html_footer+script('admin_page')
+
+@app.route('/home',methods=['GET'])
+def home_p():
+    print(session)
+    return html_header+style('admin_page')+html_mid+html_home_page+html_footer+script('home_page')
+
+
+@app.route('/listusers',methods=['GET', 'POST'])
+def list_u():
+    return jsonify(list_members())
+
+@app.route('/delete_user',methods=['POST'])
+def delete_u():
+    print(request.form)
+    if delete_member(request.form):
+        return 'True'
+    else:
+        return 'False'
+
+
+@app.route('/delete_course',methods=['POST'])
+def delete_c():
     
+    if 'username' in session:
+        if delete_course(session['username'],request.form['course_id']):
+            return 'True'
+        else:
+            return 'False'
+    else:
+        return 'False'
+
+
+@app.route('/add_member',methods=['POST'])
+def add_u():
+    return add_member(request.form)
+@app.route('/add_course',methods=['POST'])
+def add_c():
+    if 'username' in session:
+        return add_course(session['username'],request.form['course_id'])
+    else:
+        return 'False'
+@app.route('/mycourses',methods=['GET'])
+def list_cour():
+    if 'username' in session:
+        return jsonify(list_courses(session['username']))
+    else:
+        return jsonify([])
+
+
+        
+        

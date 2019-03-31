@@ -1,1 +1,3 @@
 tests/*
+envsetter
+db_test.py
