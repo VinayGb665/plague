@@ -2,6 +2,7 @@ function generate(e){
     var ass_name = e.target.nextElementSibling.id;
     var thresh = e.target.nextElementSibling.value;
     $("#generate_btn").css('display','none')
+    $("#spinner").css('display','block')
     console.log('clicked')
     $.post('/generate',(data)=>{
         if(data){
@@ -80,11 +81,11 @@ function render_user_html(name,thresh,course){
        <strong class="text-gray-dark">`+name+`</strong>
        <div >
        
-       <button class="btn btn-danger"  style="margin-right:20px">Generate</button>       
+       <button id="generate_btn" class="btn btn-danger"  style="margin-right:20px">Generate</button>       
        <input style="width:50px;visibility:hidden" value="`+thresh+`"  id="`+name+`"/>
        
        <a style="text-decoration:none" class="setter" href="#" ><img src="/static/settings.svg" class="bd-placeholder-img mr-2 rounded" width="22" height="22" role="img"></img></a>
-       <div class="spinner-border m-2" id="spinner" role="status">
+       <div class="spinner-border m-2" style="display:none" id="spinner" role="status">
   <span class="sr-only">Loading...</span>
 </div>
       </div>

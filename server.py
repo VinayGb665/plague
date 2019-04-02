@@ -7,6 +7,7 @@ from zipfile import  ZipFile
 from services.db_con import login as check_login
 from services.db_con import *
 from html_comps import *
+from time import sleep
 app = Flask(__name__)
 app.secret_key = 'any random string';
 
@@ -153,6 +154,7 @@ def list_as(courseid):
         
 @app.route('/generate',methods=['POST'])
 def generate_report():
+    sleep(2)
     if 'username' in session:
         user = session['username']
         return "Suck me 12 incher"
