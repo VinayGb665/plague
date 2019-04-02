@@ -18,7 +18,7 @@ html_header = '''
     
     
     <!-- Bootstrap core CSS -->
-<link href="/static/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="/static/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
 
 
     <style>
@@ -288,7 +288,7 @@ html_home_page = '''
             <div class="modal-header">
                 <h4 class="modal-title " style="font-weight: lighter">Enter your details</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
                 <form id="start_form">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Username</label>
@@ -347,9 +347,9 @@ html_ass_page  = '''
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title " style="font-weight: lighter">Enter your details</h4>
+                <h4 class="modal-title " style="font-weight: lighter">Heres the report generated</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="mod_bod">
                 <form id="start_form">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Username</label>

@@ -1,5 +1,5 @@
 import sys
-from Levenshtein import *
+
 import os
 import subprocess
 from subprocess import check_output
@@ -24,19 +24,9 @@ def verbatim_diff(file1,file2,strip=False):
     txt1 = "".join(t1)
     txt2 = "".join(t2)
     if(strip==True):
-    #    print(txt1)
         txt1=remove_comments_and_docstrings(txt1)
         txt2=remove_comments_and_docstrings(txt2)
-     #   print(txt1)
-    ## Levenshteins version
 
-    # levi_report['distance']=round(distance(txt1,txt2),2)
-    # levi_report['simseq_ratio']=round(seqratio(t1,t2),2)
-    # levi_report['Jaro_sim']=round(jaro_winkler(txt1,txt2),2)
-
-    ## --
-
-    levi_report['sim_ratio']=round(ratio(txt1,txt2),2)
     wc1 = int(mysheller("wc -l "+file1).strip()) #lcount for base file
     wc2 = int(mysheller("wc -l "+file2).strip()) #lcount for base file 
     wc1=max(wc1,wc2)

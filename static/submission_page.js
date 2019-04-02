@@ -2,11 +2,14 @@ data = new FormData();
 $(document).ready(()=>{
     
     $("#file").on('change',(event)=>{
-        console.log(event.target.files)
-        console.log('')
+
         $.each($('#file')[0].files, function(i, file) {
             data.append('file-'+i, file);
+            console.log(file)
+            $('.custom-file-label').html(file.name);
+            
         });
+        
     })
     $("#sub").on('click',(e)=>{
         e.preventDefault();
@@ -28,9 +31,11 @@ $(document).ready(()=>{
                 
                 if(data=="True"){
                     $("#succ").css('display','block');
+                    $("#fail").css('display','none');
                 }
                 else{
                     $("#fail").css('display','block');
+                    $("#succ").css('display','none');
                 }
             },
             fail:(xhr, textStatus, errorThrown)=>{

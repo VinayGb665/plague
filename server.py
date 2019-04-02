@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import request,redirect,render_template,session,jsonify
+from flask import request,redirect,render_template,session,jsonify,redirect
 from verbatim_handler import handle_multiple
 import os
 import pandas as pd
@@ -45,15 +45,15 @@ def upload_file():
                 #print(filename)
                 #
                 file.save(filename)
-                zip = ZipFile(filename)
-                zip.extractall('./tests')
+                # zip = ZipFile(filename)
+                # zip.extractall('./tests')
                 filename=os.path.join('./tests/', filename[:-4])
                 #print("OOPOPO",filename)
 
-                handled=handle_multiple([filename])
-                df =pd.DataFrame(handled[0],index=handled[1],columns=handled[1])
-                df.astype('int32')
-                html = df.to_html()
+                # handled=handle_multiple([filename])
+                # df =pd.DataFrame(handled[0],index=handled[1],columns=handled[1])
+                # df.astype('int32')
+                # html = df.to_html()
 
                 if update_assignment(ass_name,filename,user,courseid):
                     return jsonify("True")
@@ -73,7 +73,9 @@ def login():
     if request.method == 'GET':
         return html_header+style('login')+html_mid+html_login+html_footer+script('admin_login')
     elif request.method == 'POST':
-        if check_login(request.form):
+        res = check_login(request.form)
+        if res[0] :
+            session['isadmin'] = res[1]
             session['username'] = request.form['username']
             return 'True'
         else:
@@ -83,13 +85,17 @@ def login():
 
 @app.route('/admin',methods=['GET', 'POST'])
 def admin_home():
-    # print(session['username'])
-    return html_header+style('admin_page')+html_mid+html_admin_page+html_footer+script('admin_page')
+    if 'isadmin' in session and session['isadmin']==1:
+        return html_header+style('admin_page')+html_mid+html_admin_page+html_footer+script('admin_page')
+    else :
+        return redirect('/home')
 
 @app.route('/home',methods=['GET'])
 def home_p():
-    print(session)
-    return html_header+style('admin_page')+html_mid+html_home_page+html_footer+script('home_page')
+    if 'username' in session :
+        return html_header+style('admin_page')+html_mid+html_home_page+html_footer+script('home_page')
+    else:
+        return redirect('/login')
 
 
 @app.route('/listusers',methods=['GET', 'POST'])
@@ -145,4 +151,8 @@ def list_as(courseid):
         user=session['username']
         return jsonify(list_ass(user,courseid))
         
-        
+@app.route('/generate',methods=['POST'])
+def generate_report():
+    if 'username' in session:
+        user = session['username']
+        return "Suck me 12 incher"

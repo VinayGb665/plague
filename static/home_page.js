@@ -52,7 +52,7 @@ function render_user_html(name){
    <img src="static/idea.svg" class="bd-placeholder-img mr-2 rounded" width="32" height="42" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" ></img>
    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
      <div class="d-flex justify-content-between align-items-center w-100">
-       <a href="#" style="text-decoration:none"><strong class="text-gray-dark">`+name+`</strong></a>
+       <a href="/mycourses/`+name+`" style="text-decoration:none"><strong class="text-gray-dark">`+name+`</strong></a>
        <a href="#" onclick="remove_course('`+name+`')" ><i style="font-size:24px" class="fa">&#xf068;</i></a>
      </div>
      
