@@ -2,6 +2,7 @@ import pymongo
 from hashlib import md5
 client = pymongo.MongoClient("mongodb+srv://444bcb3a3fcf8389296c49467f27e1d6:2fbd38e6c6c4a64ef43fac3f0be7860e@cluster0-fhhlc.mongodb.net/test?retryWrites=true")
 
+
 def login(body):
     
     hash_pass = md5(body['password'].encode()).hexdigest()
@@ -82,11 +83,36 @@ def delete_course(user,course_id):
     else:
         return 'False'
 
+def update_assignment(ass,file,user,course,thresh=10):
+    db = client.user_db
+    user_col = db.user_col
+    courses_avail = user_col.find_one({'user':user})['courses']
+    print(courses_avail,course)
+
+    if course in courses_avail:
+        ass_col = db.ass_col
+        if ass_col.find_one_and_update({'ass':ass},{'$set':{'file':file,'user':user,'course':course,'thresh':thresh}},upsert=True):
+            print("dude eno ")
+            return True
+        else:
+            print("dude eno 2")
+            return False
+    else:
         
+        
+        return False
 
 
-    
-    
+def list_ass(user,course):
+    db = client.user_db
+    ass_col = db.ass_col
+    arr = []
+    for i in ass_col.find({'user':user,'course':course},{'_id':0,'ass':1}):
+        arr.append(i['ass'])
+    return arr
+
+
+
     # db = client['user_db']
     # db = client.test_database
     # print(client.test_database)
@@ -96,11 +122,12 @@ test_dict['username']='SMD'
 test_dict['email']='ss@ss.com'
 test_dict['course_code']='UE15CS102'
 test_dict['password']="a"
-delete_course('SMD','UE15CS102')
+#delete_course('SMD','UE15CS102')
+list_ass('SMD','UE15CS333')
 #list_members()
 # add_course(test_dict)
-print(list_courses('SMD'))
-print(add_member(test_dict,admin=True))
+# print(list_courses('SMD'))
+# print(add_member(test_dict,admin=True))
 #print(delete_member(test_dict))
 # 
 # login(test_dict)

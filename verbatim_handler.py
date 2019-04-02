@@ -38,7 +38,8 @@ def verbatim_diff(file1,file2,strip=False):
 
     levi_report['sim_ratio']=round(ratio(txt1,txt2),2)
     wc1 = int(mysheller("wc -l "+file1).strip()) #lcount for base file
-
+    wc2 = int(mysheller("wc -l "+file2).strip()) #lcount for base file 
+    wc1=max(wc1,wc2)
     cmd = [ 'diff', '-b','-B','-s', file1, file2,'--ignore-blank-lines','--changed-group-format=%i','|','wc','-l' ]
     
     lesse = int(subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE).communicate()[0].decode('utf-8').split(" ")[0])
@@ -47,7 +48,7 @@ def verbatim_diff(file1,file2,strip=False):
     diff_report['base_lc'] = wc1
     
     if(lesse>0):
-        diff_report['sim']=round(lesse/wc1,2)
+        diff_report['sim']=min(1,round(lesse/wc1,2))
     else:
         diff_report['sim']=0
     

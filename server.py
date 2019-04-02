@@ -12,46 +12,59 @@ app.secret_key = 'any random string';
 
 @app.route('/')
 def hello_world():
-    return html_header+html_mid+render_template('up.html')+html_footer
+    return html_header+html_mid+render_template('up.html')+html_footer+script('submission_page')
 
 @app.route('/postme', methods=['GET', 'POST'])
 def upload_file():
+    # if request.method == 'POST':
+    #     print(request.form)
+    #     print(request.files)
     if request.method == 'POST':
-        #print(request.__dict__)
         
+        #print(request.__dict__)
+        print(request.files)
         # check if the post request has the file part
         #print(request.__dict__)
-        if 'file' not in request.files:
+        
+        if 'file-0' not in request.files:
             print('No file part')
             return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            print('No selected file')
-            return redirect(request.url)
-        if file :
-            
-            
-            #filename = secure_filename(file.filename)
-            filename=file.filename
-            #print(filename)
-            #
-            file.save(filename)
-            zip = ZipFile(filename)
-            zip.extractall('./tests')
-            filename=os.path.join('./tests/', filename[:-4])
-            #print("OOPOPO",filename)
-            handled=handle_multiple([filename])
-            df =pd.DataFrame(handled[0],index=handled[1],columns=handled[1])
-            df.astype('int32')
-            html = df.to_html()
-            #print(html_footer)
-            return html_header+html_mid+our_table(html)+html_footer+script('report')
-            
-            
-        else:
-            return "AAAAAAAAA"
+        else:    
+            file = request.files['file-0']
+            if file.filename == '':
+                print('No selected file')
+                return redirect(request.url)
+            if file  and ('username' in session) and ('courseid' in request.form) and ('ass_name' in request.form):
+                
+                
+                #filename = secure_filename(file.filename)
+                filename=file.filename
+                user = session['username']
+                courseid = request.form['courseid']
+                ass_name = request.form['ass_name']
+                #print(filename)
+                #
+                file.save(filename)
+                zip = ZipFile(filename)
+                zip.extractall('./tests')
+                filename=os.path.join('./tests/', filename[:-4])
+                #print("OOPOPO",filename)
+
+                handled=handle_multiple([filename])
+                df =pd.DataFrame(handled[0],index=handled[1],columns=handled[1])
+                df.astype('int32')
+                html = df.to_html()
+
+                if update_assignment(ass_name,filename,user,courseid):
+                    return jsonify("True")
+                else :
+                    return jsonify("False")
+                
+                
+            else:
+                
+                return jsonify("False")
+
 
 @app.route('/login', methods=['GET', 'POST'])
 
@@ -113,13 +126,23 @@ def add_c():
         return add_course(session['username'],request.form['course_id'])
     else:
         return 'False'
-@app.route('/mycourses',methods=['GET'])
-def list_cour():
+@app.route('/mycourses/',methods=['GET'])
+def me_course():
     if 'username' in session:
         return jsonify(list_courses(session['username']))
     else:
         return jsonify([])
 
+@app.route('/mycourses/<courseid>',methods=['GET'])
+def list_cour(courseid):
+    if courseid:
+        
+        return html_header+style('admin_page')+html_mid+html_ass_page+html_footer+script('assignment_page')
 
+@app.route('/listass/<courseid>',methods=['GET'])
+def list_as(courseid):
+    if 'username' in session:
+        user=session['username']
+        return jsonify(list_ass(user,courseid))
         
         

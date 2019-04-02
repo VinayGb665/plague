@@ -18,7 +18,7 @@ html_header = '''
     
     
     <!-- Bootstrap core CSS -->
-<link href="static/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="/static/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
     <style>
@@ -71,18 +71,18 @@ html_header = '''
 
     </style>
     <!-- Custom styles for this template -->
-    <link href="static/dashboard.css" rel="stylesheet">
+    <link href="/static/dashboard.css" rel="stylesheet">
 
   '''
 
 def script(x):
   return'''
-  <script src="static/'''+x+'''.js"></script>
+  <script src="/static/'''+x+'''.js"></script>
   </html>
   '''
 def style(x):
   return '''
-  <link href="static/'''+x+'''.css" rel="stylesheet">
+  <link href="/static/'''+x+'''.css" rel="stylesheet">
   '''
 def our_table(x):
   return '<div class="table-responsive">'+x+'</div'
@@ -313,6 +313,73 @@ html_home_page = '''
     <img class="mr-3" src="/docs/4.3/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
     <div class="lh-100">
       <h4 class="mb-0 text-white lh-100">My Courses</h4>
+      <small>PESU Scams</small>
+    </div>
+  </div>
+
+  <div id="mycontent" class="my-3 p-3 bg-white rounded shadow-sm">
+  
+  </div>
+  
+</main>
+'''
+html_ass_page  = '''
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Pakka u wnna remove?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="paramsOkay" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="ModalExample" class="modal fade" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: lighter" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title " style="font-weight: lighter">Enter your details</h4>
+            </div>
+            <div class="modal-body">
+                <form id="start_form">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Username</label>
+                        <input type="text" class="form-control" id="new_name" placeholder="Enter your username">
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="new_mail" aria-describedby="emailHelp" placeholder="Enter email">
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                   
+                  
+                      
+                   <br>
+                    <button id="add_mem"  class="btn btn-primary float-right"  >Submit</button>
+                    <button type="reset" class="btn btn-secondary" >Reset</button>
+                  </form>
+            </div>
+            <div  class="modal-footer float-left" >
+              <span id="formmsg" style="position: relative;right:20%">
+                           </span></div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<main role="main" id="manager" class="container">
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm" style="background-color:#bf3d2e">
+    <img class="mr-3" src="/docs/4.3/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h4 class="mb-0 text-white lh-100">Manage Assignments</h4>
       <small>PESU Scams</small>
     </div>
   </div>
