@@ -13,20 +13,18 @@ app.secret_key = 'any random string';
 
 @app.route('/')
 def hello_world():
-    return html_header+html_mid+render_template('up.html')+html_footer+script('submission_page')
+    if 'username' in session:
+        return html_header+html_mid+render_template('up.html')+html_footer+script('submission_page')
+    else:
+        return redirect('/login')
 
 @app.route('/postme', methods=['GET', 'POST'])
 def upload_file():
     # if request.method == 'POST':
     #     print(request.form)
     #     print(request.files)
-    if request.method == 'POST':
-        
-        #print(request.__dict__)
-        print(request.files)
-        # check if the post request has the file part
-        #print(request.__dict__)
-        
+    
+    if request.method == 'POST' and 'username' in session:
         if 'file-0' not in request.files:
             print('No file part')
             return redirect(request.url)
@@ -36,21 +34,14 @@ def upload_file():
                 print('No selected file')
                 return redirect(request.url)
             if file  and ('username' in session) and ('courseid' in request.form) and ('ass_name' in request.form):
-                
-                
-                #filename = secure_filename(file.filename)
                 filename=file.filename
                 user = session['username']
                 courseid = request.form['courseid']
                 ass_name = request.form['ass_name']
-                #print(filename)
-                #
                 file.save(filename)
                 # zip = ZipFile(filename)
                 # zip.extractall('./tests')
                 filename=os.path.join('./tests/', filename[:-4])
-                #print("OOPOPO",filename)
-
                 # handled=handle_multiple([filename])
                 # df =pd.DataFrame(handled[0],index=handled[1],columns=handled[1])
                 # df.astype('int32')
@@ -65,11 +56,11 @@ def upload_file():
             else:
                 
                 return jsonify("False")
+    else:
+        return jsonify("False")
 
 
 @app.route('/login', methods=['GET', 'POST'])
-
-
 def login():
     if request.method == 'GET':
         return html_header+style('login')+html_mid+html_login+html_footer+script('admin_login')
@@ -78,9 +69,9 @@ def login():
         if res[0] :
             session['isadmin'] = res[1]
             session['username'] = request.form['username']
-            return 'True'
+            return jsonify(['True',session['username'],session['isadmin']])
         else:
-            return 'False'
+            return jsonify(['False'],'',0)
 
 
 
@@ -158,3 +149,8 @@ def generate_report():
     if 'username' in session:
         user = session['username']
         return "Suck me 12 incher"
+@app.route('/signout',methods=['POST'])
+def logout():
+    session.pop('username',None)
+    session.pop('isadmin',None)
+    return "True"

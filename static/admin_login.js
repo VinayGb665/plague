@@ -11,8 +11,14 @@ function add_event_listeners(){
         let body={'username':$("#inputEmail").val(),'password':$("#inputPassword").val()}
         $.post('/login',body,(data)=>{
             console.log(data)
-            if(data.toString()=="True"){
-                console.log('Redirecting')
+            if(data[0].toString()=="True"){
+                sessionStorage.setItem('user',data[1])
+                if(data[2]){
+                    sessionStorage.setItem('isAdmin',true)
+                    window.location.href="/admin"
+                }
+                window.location.href="/"
+                console.log('Redirecting',sessionStorage.getItem('user'))
             }
             else{
                 $("#fail").css('display','block');

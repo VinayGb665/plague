@@ -12,7 +12,7 @@ html_header = '''
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-
+        <script src="static/common.js"></script>
     <title>Dashboard Template · Bootstrap</title>
 
     
@@ -93,10 +93,10 @@ html_mid = '''
   <body style="overflow-y: hidden;">
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">PESU</a>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
+      <a class="nav-link" id="signout" onclick="sign_out()">Sign out</a>
     </li>
   </ul>
 </nav>
@@ -148,13 +148,10 @@ html_mid = '''
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" id="heading">
         <h1 class="h2">Plagiarism score table</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
+  
+          <button type="button" class="btn btn-sm btn-outline-secondary ">
+            <span data-feather="calendar" id="username"> This week</span>
+            
           </button>
         </div>
       </div>
@@ -181,6 +178,7 @@ html_login = '''
   <div class="alert alert-warning" id ="fail" role="alert">
       Login Failed
   </div>
+  
   <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
 </form>
 '''

@@ -1,16 +1,20 @@
 function generate(e){
     var ass_name = e.target.nextElementSibling.id;
     var thresh = e.target.nextElementSibling.value;
+    var spinner = e.target.previousElementSibling;
+    spinner.style.display = ""
+    e.target.style.display = "none"
     $("#generate_btn").css('display','none')
-    $("#spinner").css('display','block')
+     $("#spinner").show()
     console.log('clicked')
     $.post('/generate',(data)=>{
         if(data){
             console.log(data)
             $("#mod_bod").html('');
+            spinner.style.display = "none"
             $("#mod_bod").html(data);
             $("#ModalExample").modal('toggle');
-            $("#generate_btn").css('display','block')
+            $("#generate_btn").css('display','')
         }
     })
 
@@ -80,14 +84,15 @@ function render_user_html(name,thresh,course){
 
        <strong class="text-gray-dark">`+name+`</strong>
        <div >
-       
+       <div class="spinner-border m-1" style="display:none"  role="status">
+       <span class="sr-only">Loading...</span>
+     </div>
        <button id="generate_btn" class="btn btn-danger"  style="margin-right:20px">Generate</button>       
-       <input style="width:50px;visibility:hidden" value="`+thresh+`"  id="`+name+`"/>
+   <input style="width:50px;visibility:hidden;border:1px solid #1284e8;border-radius:10%;padding:3px;" value="`+thresh+`"  id="`+name+`"/>
        
        <a style="text-decoration:none" class="setter" href="#" ><img src="/static/settings.svg" class="bd-placeholder-img mr-2 rounded" width="22" height="22" role="img"></img></a>
-       <div class="spinner-border m-2" style="display:none" id="spinner" role="status">
-  <span class="sr-only">Loading...</span>
-</div>
+       
+           
       </div>
      </div>
     
