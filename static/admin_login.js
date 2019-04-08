@@ -13,12 +13,12 @@ function add_event_listeners(){
             console.log(data)
             if(data[0].toString()=="True"){
                 sessionStorage.setItem('user',data[1])
-                if(data[2]){
+                if(data[2]==1){
                     sessionStorage.setItem('isAdmin',true)
                     window.location.href="/admin"
                 }
-                window.location.href="/"
-                console.log('Redirecting',sessionStorage.getItem('user'))
+                // window.location.href="/"
+                // console.log('Redirecting',sessionStorage.getItem('user'))
             }
             else{
                 $("#fail").css('display','block');

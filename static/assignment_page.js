@@ -2,23 +2,42 @@ function generate(e){
     var ass_name = e.target.nextElementSibling.id;
     var thresh = e.target.nextElementSibling.value;
     var spinner = e.target.previousElementSibling;
+    course=location.href.substr(location.href.lastIndexOf('/') + 1)
     spinner.style.display = ""
     e.target.style.display = "none"
-    $("#generate_btn").css('display','none')
-     $("#spinner").show()
+    // $("#generate_btn").css('display','none')
+    //  $("#spinner").show()
     console.log('clicked')
-    $.post('/generate',(data)=>{
+    $.post('/generate',{ass_name:ass_name,thresh:thresh,course:course},(data)=>{
         if(data){
-            console.log(data)
+            // console.log(data)
+            
             $("#mod_bod").html('');
             spinner.style.display = "none"
             $("#mod_bod").html(data);
+            $('.dataframe')[0].setAttribute('class','table table-borderless table-dark')
+            $('table')[0].setAttribute('border','0')
+            $('table')[0].setAttribute('width','400')
+            e.target.style.display = ""
             $("#ModalExample").modal('toggle');
             $("#generate_btn").css('display','')
+            disp_thresh(thresh)
+            
         }
     })
 
     
+}
+function disp_thresh(a){
+    let ar = $('td')
+    for(i=0;i<ar.length;i++){
+        if(Number(ar[i].innerHTML)>a){
+            console.log('aaa')
+            ar[i].style.backgroundColor ="red";
+            ar[i].style.borderRadius ="1%";
+            // ar[i].css('border-radius','5%')
+        }
+    }
 }
 
 
@@ -46,6 +65,7 @@ function hide_some(){
     document.getElementById('heading').style.visibility='hidden';
     $("#fail").css('display','none')
     $($("ul")[1]).css('display','none')
+    $('body').css('overflow','auto')
 }
 
 

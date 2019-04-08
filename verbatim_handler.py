@@ -6,9 +6,13 @@ from subprocess import check_output
 import pprint
 import numpy as np
 from comment_handler import remove_comments_and_docstrings
-
-w_lev0 = 0.54
-w_lev1 =0.46
+from src import type_zero
+from src import type_one
+from src import type_two
+import pandas as pd
+w_lev0 = 0.45
+w_lev1 = 0.32
+w_lev2 = 0.23
 
 def mysheller(cmd):
     return subprocess.Popen(
@@ -52,30 +56,45 @@ def handle_multiple(argument_array):
             runs plag check on each of the file and builds the table array
         Ouput 
     '''
+    print(argument_array)
     temp=argument_array
     size=len(argument_array)
     if(size<=1):
-        argument_array=os.listdir(argument_array[0])
-
+        # argument_array=os.listdir(argument_array[0])
+        
+        argument_array=[]
+        for root, dirs, files in os.walk("./dataset/"+temp[0]):  
+            for filename in files:
+                argument_array.append(temp[0]+'/'+filename)
         size=len(argument_array)
-        for i in range(0,size):
-            argument_array[i]=temp[0]+'/'+argument_array[i];
-    print(argument_array)
+    print("Later:",argument_array)
     init_array=np.zeros((size,size))
     init_array2=np.zeros((size,size))
     
     for i in range(0,size):
         for j in range(0,size):
-            if(j!=i):
-                lev0_sim=verbatim_diff(argument_array[i],argument_array[j])
-                lev1_sim=verbatim_diff(argument_array[i],argument_array[j],True)
-                
-                init_array[i][j]=int((lev0_sim*w_lev0+lev1_sim*w_lev1)*100)
+            if(j!=i and init_array[i][j]==0):
+                # try:
+                type_zero_score=type_zero.compare_files(argument_array[i],argument_array[j])
+                type_one_score=type_one.compare_files(argument_array[i],argument_array[j])
+                type_two_score=type_two.compare_files(argument_array[i],argument_array[j])
+                # print(type_zero_score,type_one_score)
+                # except Exception as e :
+                #     print(e)
+                #     type_zero_score=[0.5]
+                #     type_one_score=[0.5]
+                # print(type_zero_score)
+                # init_array[i][j]=int((w_lev0*type_zero_score[0]+type_one_score[0]*w_lev1))
+                init_array[i][j]=int((w_lev0*type_zero_score[0]+type_one_score[0]*w_lev1+w_lev2*type_two_score[0]))
                 init_array.astype(int)
                 # init_array2[i][j]=temp[1]
     # print("\n Similarity matrix using diff shit : \n")
     # print(init_array)
     # print("\n Similarity matrix with levenShteins shit: \n")
     # print(init_array2)
-    return (init_array,list(map(os.path.basename,argument_array)))
+    cols = list(map(os.path.basename,argument_array))
+    df = pd.DataFrame(init_array,index=cols,columns=cols)
+    df.astype('int32')
+    html = df.to_html()
+    return html
 

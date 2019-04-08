@@ -10,7 +10,8 @@ from html_comps import *
 from time import sleep
 app = Flask(__name__)
 app.secret_key = 'any random string';
-
+UPLOAD_FOLDER = './dataset'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def hello_world():
     if 'username' in session:
@@ -37,16 +38,15 @@ def upload_file():
                 filename=file.filename
                 user = session['username']
                 courseid = request.form['courseid']
-                ass_name = request.form['ass_name']
-                file.save(filename)
-                # zip = ZipFile(filename)
-                # zip.extractall('./tests')
-                filename=os.path.join('./tests/', filename[:-4])
-                # handled=handle_multiple([filename])
-                # df =pd.DataFrame(handled[0],index=handled[1],columns=handled[1])
-                # df.astype('int32')
-                # html = df.to_html()
-
+                ass_name = request.form['ass_name'] 
+                file.save(app.config['UPLOAD_FOLDER']+'/'+filename)
+                zip = ZipFile(app.config['UPLOAD_FOLDER']+'/'+filename)
+                for name in zip.namelist():   
+                    zip.extract(name, app.config['UPLOAD_FOLDER']+'/')
+                filename = os.path.join('', filename[:-4])
+                # handled = handle_multiple([filename])
+                
+                # print(handled[0])
                 if update_assignment(ass_name,filename,user,courseid):
                     return jsonify("True")
                 else :
@@ -145,10 +145,11 @@ def list_as(courseid):
         
 @app.route('/generate',methods=['POST'])
 def generate_report():
-    sleep(2)
     if 'username' in session:
         user = session['username']
-        return "Suck me 12 incher"
+        print('Illi',request.form)
+        dir_name = get_file_name_for_ass(request.form['ass_name'],request.form['course'])
+        return handle_multiple([dir_name])
 @app.route('/signout',methods=['POST'])
 def logout():
     session.pop('username',None)

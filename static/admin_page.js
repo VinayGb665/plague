@@ -19,7 +19,7 @@ function addnew(){
 
 }
 function hide_some(){   
-    // document.getElementById('sidebar').style.visibility='hidden';
+    document.getElementById('sidebar').style.display='none';
     document.getElementById('heading').style.visibility='hidden';
     $("#fail").css('display','none')
     $($("ul")[1]).css('display','none')

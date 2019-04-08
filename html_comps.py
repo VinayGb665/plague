@@ -322,53 +322,19 @@ html_home_page = '''
 </main>
 '''
 html_ass_page  = '''
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Pakka u wnna remove?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="paramsOkay" class="btn btn-primary">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="ModalExample" class="modal fade" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: lighter" >
-    <div class="modal-dialog">
-        <div class="modal-content">
+
+<div id="ModalExample" class="modal fade bd-example-modal-lg"" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: lighter" >
+    <div class="modal-dialog modal-lg modal-dialog-centered" >
+        <div class="modal-content" style="width:100%">
             <div class="modal-header">
                 <h4 class="modal-title " style="font-weight: lighter">Heres the report generated</h4>
             </div>
-            <div class="modal-body" id="mod_bod">
-                <form id="start_form">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Username</label>
-                        <input type="text" class="form-control" id="new_name" placeholder="Enter your username">
-                      </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="new_mail" aria-describedby="emailHelp" placeholder="Enter email">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                   
-                  
-                      
-                   <br>
-                    <button id="add_mem"  class="btn btn-primary float-right"  >Submit</button>
-                    <button type="reset" class="btn btn-secondary" >Reset</button>
-                  </form>
+            <div class="modal-body"  id="mod_bod">
+           
+                
             </div>
-            <div  class="modal-footer float-left" >
-              <span id="formmsg" style="position: relative;right:20%">
-                           </span></div>
+           
+
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
