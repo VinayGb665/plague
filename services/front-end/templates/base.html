@@ -1,0 +1,10 @@
+{% for row in data %}
+    [
+    <ul>
+        {% for element in row[0:] %}
+            <p>{{element|join(', ')}}</p>
+        {% endfor %}
+    </ul>
+    ]
+    <br>
+{% endfor %}

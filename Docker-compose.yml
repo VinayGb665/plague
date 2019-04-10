@@ -1,0 +1,53 @@
+version : '3'
+services:
+  load-balancer:
+    build : services/load-balancer/    
+    links:
+        - node1:node1
+        # - node2:node2
+        # - node3:node3
+        - mongo:mongo
+    ports :
+      - "80:80"
+
+  node1:
+    build : services/app/
+    ports:
+      - "5000"
+
+  
+  node2:
+    build : services/app/
+    ports:
+      - "5000"
+  
+  node3:
+    build : services/app/
+    ports:
+      - "5000"
+  mongo:
+    image : mongo
+    ports:
+      - "27017"
+
+    
+  # node1:
+  #   build : services/front-end/
+  #   ports : 
+  #     - "5000"
+  #   # volumes:
+  #   #   - ./services/home:/src
+  # node2:
+  #   build : services/back-end/
+  #   ports : 
+  #     - "5000"
+
+networks:
+    default:
+        external:
+          name: "plague-net"
+
+
+
+    # volumes:
+    #   - ./services/login:/src
