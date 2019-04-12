@@ -143,5 +143,4 @@ def db_init():
     init_admin['email']='plag_admin@pes.edu'
     init_admin['password']='admin_plag'
     add_member(init_admin,admin=True)
-db_init()
 
