@@ -41,13 +41,13 @@ def upload_file():
                 ass_name = request.form['ass_name'] 
                 file.save(app.config['UPLOAD_FOLDER']+'/'+filename)
                 zip = ZipFile(app.config['UPLOAD_FOLDER']+'/'+filename)
-                for name in zip.namelist():   
-                    zip.extract(name, app.config['UPLOAD_FOLDER']+'/')
                 filename = os.path.join('', filename[:-4])
                 # handled = handle_multiple([filename])
                 
                 # print(handled[0])
                 if update_assignment(ass_name,filename,user,courseid):
+                    for name in zip.namelist():
+                        zip.extract(name, app.config['UPLOAD_FOLDER']+'/')
                     return jsonify("True")
                 else :
                     return jsonify("False")
@@ -84,6 +84,8 @@ def admin_home():
 
 @app.route('/home',methods=['GET'])
 def home_p():
+    if 'isadmin' in session and session['isadmin']==1:
+        return redirect('/admin')
     if 'username' in session :
         return html_header+style('admin_page')+html_mid+html_home_page+html_footer+script('home_page')
     else:
@@ -149,6 +151,7 @@ def generate_report():
         user = session['username']
         print('Illi',request.form)
         dir_name = get_file_name_for_ass(request.form['ass_name'],request.form['course'])
+        print(dir_name)
         return handle_multiple([dir_name])
 @app.route('/signout',methods=['POST'])
 def logout():

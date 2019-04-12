@@ -78,6 +78,7 @@ def handle_multiple(argument_array):
                 type_zero_score=type_zero.compare_files(argument_array[i],argument_array[j])
                 type_one_score=type_one.compare_files(argument_array[i],argument_array[j])
                 type_two_score=type_two.compare_files(argument_array[i],argument_array[j])
+                type_three_score=type_three.compare_files(argument_array[i],argument_array[j])
                 # print(type_zero_score,type_one_score)
                 # except Exception as e :
                 #     print(e)
@@ -93,7 +94,8 @@ def handle_multiple(argument_array):
     # print("\n Similarity matrix with levenShteins shit: \n")
     # print(init_array2)
     cols = list(map(os.path.basename,argument_array))
-    df = pd.DataFrame(init_array,index=cols,columns=cols)
+    df = pd.DataFrame(np.amax(init_array,1),index=cols,columns=['score'])
+    print(np.amax(init_array,1))
     df.astype('int32')
     html = df.to_html()
     return html

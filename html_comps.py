@@ -12,13 +12,13 @@ html_header = '''
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-        <script src="static/common.js"></script>
+        <script src="/static/js/common.js"></script>
     <title>Dashboard Template · Bootstrap</title>
 
     
     
     <!-- Bootstrap core CSS -->
-<link href="/static/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
+<link href="/static/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
 
 
     <style>
@@ -71,18 +71,18 @@ html_header = '''
 
     </style>
     <!-- Custom styles for this template -->
-    <link href="/static/dashboard.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
 
   '''
 
 def script(x):
   return'''
-  <script src="/static/'''+x+'''.js"></script>
+  <script src="/static/js/'''+x+'''.js"></script>
   </html>
   '''
 def style(x):
   return '''
-  <link href="/static/'''+x+'''.css" rel="stylesheet">
+  <link href="/static/css/'''+x+'''.css" rel="stylesheet">
   '''
 def our_table(x):
   return '<div class="table-responsive">'+x+'</div'
@@ -162,7 +162,6 @@ html_mid = '''
 
 html_login = '''
   <form id="login_form" class="form-signin">
-  <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
   <center><h1 class="h3 mb-3 font-weight-normal">Please sign in</h1></center>
   <label for="inputEmail" class="sr-only">Email address</label>
   <input type="" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -202,7 +201,7 @@ html_admin_page = '''
         </button>
       </div>
       <div class="modal-body">
-        Pakka u wnna remove?
+        Are u sure ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -245,10 +244,9 @@ html_admin_page = '''
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <main role="main" id="manager" class="container">
   <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-    <img class="mr-3" src="/docs/4.3/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
     <div class="lh-100">
       <h4 class="mb-0 text-white lh-100">Manage Members</h4>
-      <small>PESU Scams</small>
+      <small></small>
     </div>
   </div>
 
@@ -271,7 +269,7 @@ html_home_page = '''
         </button>
       </div>
       <div class="modal-body">
-        Pakka u wnna remove?
+        Are u sure ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -308,10 +306,9 @@ html_home_page = '''
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <main role="main" id="manager" class="container">
   <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-    <img class="mr-3" src="/docs/4.3/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
     <div class="lh-100">
       <h4 class="mb-0 text-white lh-100">My Courses</h4>
-      <small>PESU Scams</small>
+      <small></small>
     </div>
   </div>
 
@@ -329,9 +326,9 @@ html_ass_page  = '''
             <div class="modal-header">
                 <h4 class="modal-title " style="font-weight: lighter">Heres the report generated</h4>
             </div>
-            <div class="modal-body"  id="mod_bod">
-           
-                
+            <div class="modal-body" id="mod_bod">
+            
+                 
             </div>
            
 
@@ -341,10 +338,9 @@ html_ass_page  = '''
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <main role="main" id="manager" class="container">
   <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm" style="background-color:#bf3d2e">
-    <img class="mr-3" src="/docs/4.3/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
     <div class="lh-100">
       <h4 class="mb-0 text-white lh-100">Manage Assignments</h4>
-      <small>PESU Scams</small>
+      <small></small>
     </div>
   </div>
 

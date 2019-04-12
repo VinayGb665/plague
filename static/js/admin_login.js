@@ -10,17 +10,17 @@ function add_event_listeners(){
         e.preventDefault();
         let body={'username':$("#inputEmail").val(),'password':$("#inputPassword").val()}
         $.post('/login',body,(data)=>{
-            console.log(data)
+            
             if(data[0].toString()=="True"){
                 sessionStorage.setItem('user',data[1])
                 if(data[2]==1){
                     sessionStorage.setItem('isAdmin',true)
                     window.location.href="/admin"
                 }
-                // window.location.href="/"
-                // console.log('Redirecting',sessionStorage.getItem('user'))
+                window.location.href="/home"
             }
             else{
+                console.log('Error with logging in')
                 $("#fail").css('display','block');
             }
         })

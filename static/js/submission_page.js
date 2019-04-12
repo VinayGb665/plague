@@ -5,7 +5,7 @@ $(document).ready(()=>{
 
         $.each($('#file')[0].files, function(i, file) {
             data.append('file-'+i, file);
-            console.log(file)
+            
             $('.custom-file-label').html(file.name);
             
         });
@@ -13,12 +13,10 @@ $(document).ready(()=>{
     })
     $("#sub").on('click',(e)=>{
         e.preventDefault();
-        //console.log("aaaa   ")
-         //data.append("courseid","challehannu");
          data.set("courseid",$("#courseid").val())
          data.set("ass_name",$("#assname").val())
 
-         console.log(data)
+         console.log('Sending: ',data)
         $.post({
             url: '/postme',
             type: 'POST',
@@ -41,7 +39,7 @@ $(document).ready(()=>{
                 }
             },
             fail:(xhr, textStatus, errorThrown)=>{
-                console.log("adfklyjhcag");
+                console.log("Failed");
             }   
         })    
     })

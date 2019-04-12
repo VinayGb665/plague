@@ -3,7 +3,6 @@
 function addnew(){
     $("#ModalExample").modal('toggle');
     $("#ModalExample").on('click', '#add_mem', function(e) {
-        console.log("ayee")
         e.preventDefault();
         let post_body = {}
         post_body['username']=$("#new_name").val()
@@ -31,13 +30,12 @@ function fetch_members_and_populate(){
     let html_str='';
     $.get('/listusers',(data)=>{
         if(data){
-            console.log(data[2])
             for(i=0;i<data.length;i++){
 
                 html_str+=render_user_html(data[i].user,data[i].email,i)
             }
             if(i==0){
-                html_str+="<center><span>No users yet add them by clicking this booty here</span></center>"
+                html_str+="<center><span>No users yet add them by clicking this button here</span></center>"
             }
             html_str+='</br><center><a href="#" onclick="addnew()"><i style="font-size:24px" class="fa">&#xf067;</i></a></center>'
             $("#mycontent").html(html_str)
@@ -66,19 +64,16 @@ function render_user_html(name,mail,i){
 }
 
 function event_listeners(){
-    let anchors = $('i');
-    
-    console.log(anchors)
-   
+    let anchors = $('i');   
 }
 function remove_user(i){
     var $modal = $('#exampleModal');
-    //console.log('Now end mee right fekin nowww')
+    
     $modal.modal("show");
     $("#exampleModal").on('click', '#paramsOkay', function(e) {
         $("#exampleModal").modal("hide");
     $.post('/delete',{user:i},(data)=>{
-        console.log(data)
+        console.log('Delete request response for user: ',data)
         fetch_members_and_populate()
     })
     

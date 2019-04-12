@@ -1,5 +1,6 @@
 import pymongo
 from hashlib import md5
+import os, re, os.path
 #client = pymongo.MongoClient("mongodb+srv://444bcb3a3fcf8389296c49467f27e1d6:2fbd38e6c6c4a64ef43fac3f0be7860e@cluster0-fhhlc.mongodb.net/test?retryWrites=true")
 client = pymongo.MongoClient("mongodb://localhost:27017")
 
@@ -116,7 +117,9 @@ def list_ass(user,course):
 def get_file_name_for_ass(assname,course):
     db = client.user_db
     ass_col = db.ass_col
+    print(assname,course)
     result = ass_col.find_one({'ass':assname,'course':course},{'_id':0,'file':1})
+    print(result)
     return result['file']
 
 
@@ -125,9 +128,20 @@ def get_file_name_for_ass(assname,course):
     # db = client.test_database
     # print(client.test_database)
     # print()
-test_dict =dict()
-test_dict['username']='SMD'
-test_dict['email']='ss@ss.com'
-test_dict['course_code']='UE15CS102'
-test_dict['password']="a"
-get_file_name_for_ass('Ass3','UE15CS333')
+# get_file_name_for_ass('Ass3','UE15CS333')
+
+
+def db_init():
+    
+    client.drop_database('user_db')
+    mypath = "dataset" #Enter your path here
+    for root, dirs, files in os.walk(mypath):
+        for file in files:
+            os.remove(os.path.join(root, file))
+    init_admin = dict()
+    init_admin['username']='Admin'
+    init_admin['email']='plag_admin@pes.edu'
+    init_admin['password']='admin_plag'
+    add_member(init_admin,admin=True)
+db_init()
+
