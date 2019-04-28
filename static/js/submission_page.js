@@ -1,7 +1,8 @@
 data = new FormData();
 $(document).ready(()=>{
     $("#username").html("Hi, "+sessionStorage.getItem('user'))
-    $("#file").on('change',(event)=>{
+    $("#lil_head").css('visibility','hidden')
+        $("#file").on('change',(event)=>{
 
         $.each($('#file')[0].files, function(i, file) {
             data.append('file-'+i, file);

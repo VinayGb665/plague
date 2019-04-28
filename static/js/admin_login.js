@@ -1,6 +1,7 @@
 function hide_some(){   
     document.getElementById('sidebar').style.visibility='hidden';
     document.getElementById('heading').style.visibility='hidden';
+    document.getElementById('signout').style.visibility='hidden';
     $("#fail").css('display','none')
 }
 

@@ -79,8 +79,9 @@ function remove_course(i){
    
 }
 $(document).ready(()=>{
-    hide_some();
+   // hide_some();
     fetch_members_and_populate_courses();
-    
+    $("#username").html("Hi, "+sessionStorage.getItem('user'))
+    $("#lil_head").css('visibility','hidden')
     
 })

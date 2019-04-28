@@ -9,6 +9,10 @@ def token_generator(file, tokens_list):
         tokens_list.append(toktype)
     return 0
 
+def write_to_file(line_list):
+    with open('./dataset/type_two_dump.py', 'w') as f:
+        for item in line_list:
+            f.write("%s" % item)
 
 def c_token_generator(filename):
     tok = custom_tokenizer.Tokenizer(utils.get_file_path(filename))
@@ -24,9 +28,14 @@ def compare_files(filename_one, filename_two):
         file_two = open(utils.get_file_path(filename_two))
 
         file_one_tokens, file_two_tokens = [], []
+        file_one_clean, file_two_clean = utils.extract_files(filename_one, filename_two, True)
 
         if filename_one.split(".")[1] == "py":
+            write_to_file(file_one_clean)
+            file_one = open(utils.get_file_path('type_two_dump.py'))
             token_generator(file_one, file_one_tokens)
+            write_to_file(file_two_clean)
+            file_two = open(utils.get_file_path('type_two_dump.py'))
             token_generator(file_two, file_two_tokens)
         else:
             file_one_tokens = c_token_generator(filename_one)

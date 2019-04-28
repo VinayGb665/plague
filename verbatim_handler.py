@@ -9,10 +9,15 @@ from comment_handler import remove_comments_and_docstrings
 from src import type_zero
 from src import type_one
 from src import type_two
+from src import type_three
 import pandas as pd
-w_lev0 = 0.45
-w_lev1 = 0.32
-w_lev2 = 0.23
+# w_lev0 = 0.29
+# w_lev1 = 0.26
+# w_lev2 = 0.23
+# w_lev3 = 0.22
+w_lev0 = 0.37
+w_lev1 = 0.34
+w_lev2 = 0.29
 
 def mysheller(cmd):
     return subprocess.Popen(
@@ -86,6 +91,7 @@ def handle_multiple(argument_array):
                 #     type_one_score=[0.5]
                 # print(type_zero_score)
                 # init_array[i][j]=int((w_lev0*type_zero_score[0]+type_one_score[0]*w_lev1))
+                # +w_lev3*type_three_score[0])
                 init_array[i][j]=int((w_lev0*type_zero_score[0]+type_one_score[0]*w_lev1+w_lev2*type_two_score[0]))
                 init_array.astype(int)
                 # init_array2[i][j]=temp[1]
@@ -94,8 +100,9 @@ def handle_multiple(argument_array):
     # print("\n Similarity matrix with levenShteins shit: \n")
     # print(init_array2)
     cols = list(map(os.path.basename,argument_array))
-    df = pd.DataFrame(np.amax(init_array,1),index=cols,columns=['score'])
-    print(np.amax(init_array,1))
+    # df = pd.DataFrame(np.amax(init_array,1),index=cols,columns=['score'])
+    df = pd.DataFrame(np.matrix(init_array),index = cols, columns = cols)
+    # print(np.amax(init_array,1))
     df.astype('int32')
     html = df.to_html()
     return html

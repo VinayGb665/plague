@@ -133,8 +133,9 @@ function remove_user(i){
    
 }
 $(document).ready(()=>{
-    hide_some();
+    //hide_some();
     fetch_members_and_populate();
-    
+    $("#username").html("Hi, "+sessionStorage.getItem('user'))
+    $("#lil_head").css('visibility','hidden')
     
 })
