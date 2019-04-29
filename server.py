@@ -144,6 +144,12 @@ def list_as(courseid):
     if 'username' in session:
         user=session['username']
         return jsonify(list_ass(user,courseid))
+
+@app.route('/submissions/<courseid>/<assname>',methods=['GET'])
+def listsubs(courseid,assname):
+    if 'username' in session:
+        user=session['username']
+        return jsonify(list_subs(courseid,assname))
         
 @app.route('/generate',methods=['POST'])
 def generate_report():
@@ -152,9 +158,18 @@ def generate_report():
         print('Illi',request.form)
         dir_name = get_file_name_for_ass(request.form['ass_name'],request.form['course'])
         print(dir_name)
-        return handle_multiple([dir_name])
+        html = handle_multiple([dir_name])
+        update_scores(request.form['ass_name'],request.form['course'],html)
+        return html
 @app.route('/signout',methods=['POST'])
 def logout():
     session.pop('username',None)
     session.pop('isadmin',None)
     return "True"
+
+@app.route('/assignments/<courseid>/<assname>',methods=['GET'])
+def myass(courseid,assname):
+    if courseid:
+        
+        return html_header+style('admin_page')+html_mid+html_ass_page+html_footer+script('list_subs_page')
+    print('aaa')

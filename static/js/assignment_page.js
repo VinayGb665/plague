@@ -83,7 +83,7 @@ function render_user_html(name,thresh,course){
      <div class="d-flex justify-content-between align-items-center w-100">
      
 
-       <strong class="text-gray-dark">`+name+`</strong>
+      <a href="/assignments/`+course+`/`+name+`" ><strong class="text-gray-dark">`+name+`</strong></a>
        <div >
        <div class="spinner-border m-1" style="display:none"  role="status">
        <span class="sr-only">Loading...</span>
