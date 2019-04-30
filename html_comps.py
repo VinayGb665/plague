@@ -323,7 +323,7 @@ html_ass_page  = '''
 <main role="main" id="manager" class="container">
   <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm" style="background-color:#bf3d2e">
     <div class="lh-100">
-      <h4 class="mb-0 text-white lh-100">Manage Assignments</h4>
+      <h4 class="mb-0 text-white lh-100" id="title_bro">Manage Assignments</h4>
       <small></small>
     </div>
   </div>

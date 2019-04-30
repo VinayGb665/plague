@@ -1,6 +1,7 @@
 import pymongo
 from hashlib import md5
 import os, re, os.path
+from bson import ObjectId
 #client = pymongo.MongoClient("mongodb+srv://444bcb3a3fcf8389296c49467f27e1d6:2fbd38e6c6c4a64ef43fac3f0be7860e@cluster0-fhhlc.mongodb.net/test?retryWrites=true")
 client = pymongo.MongoClient("mongodb://localhost:27017")
 
@@ -92,7 +93,8 @@ def update_assignment(ass,file,user,course,thresh=50):
 
     if course in courses_avail:
         ass_col = db.ass_col
-        result = ass_col.find_one_and_update({'ass':ass},{'$set':{'file':file,'user':user,'course':course,'thresh':thresh}},upsert=True)
+
+        result = ass_col.find_one_and_update({'ass':ass,'course':course},{'$set':{'file':file,'user':user,'course':course,'thresh':thresh}},upsert=True)
         print(result)
         if result or result==None:
             print("dude eno ")
@@ -130,7 +132,22 @@ def get_file_name_for_ass(assname,course):
     # print()
 # get_file_name_for_ass('Ass3','UE15CS333')
 
+def update_scores(ass,course,score):
+    db = client.user_db
+    ass_col = db.ass_col
+    result = ass_col.find_one_and_update({'ass':ass,'course':course},{'$push':{'submissions':{'_id':ObjectId(),'score':score}}})
 
+def list_subs(course,ass):
+    db = client.user_db
+    ass_col = db.ass_col
+    arr = []
+    print(course,ass)
+    res = ass_col.find_one({'ass':ass,'course':course},{'_id':0,'submissions':1})
+    for i in res['submissions']:
+        arr.append({'score':i['score'],'sub_id':str(i['_id']),'time':i['_id'].generation_time})
+    
+    print(arr)
+    return arr
 def db_init():
     
     client.drop_database('user_db')
