@@ -11,13 +11,13 @@ from src import type_one
 from src import type_two
 from src import type_three
 import pandas as pd
-# w_lev0 = 0.29
-# w_lev1 = 0.26
-# w_lev2 = 0.23
-# w_lev3 = 0.22
-w_lev0 = 0.37
-w_lev1 = 0.34
-w_lev2 = 0.29
+w_lev0 = 0.27
+w_lev1 = 0.26
+w_lev2 = 0.24
+w_lev3 = 0.23
+# w_lev0 = 0.37
+# w_lev1 = 0.34
+# w_lev2 = 0.29
 
 def mysheller(cmd):
     return subprocess.Popen(
@@ -89,10 +89,12 @@ def handle_multiple(argument_array):
                 #     print(e)
                 #     type_zero_score=[0.5]
                 #     type_one_score=[0.5]
-                # print(type_zero_score)
+                print("For Files: ", argument_array[i], "and" ,argument_array[j])
+                print(type_zero_score[0], type_one_score[0], type_two_score[0], type_three_score[0])
+                print("-"*100)
                 # init_array[i][j]=int((w_lev0*type_zero_score[0]+type_one_score[0]*w_lev1))
                 # +w_lev3*type_three_score[0])
-                init_array[i][j]=int((w_lev0*type_zero_score[0]+type_one_score[0]*w_lev1+w_lev2*type_two_score[0]))
+                init_array[i][j]=int((w_lev0*type_zero_score[0]+type_one_score[0]*w_lev1+w_lev2*type_two_score[0]+w_lev3*type_three_score[0]))
                 init_array.astype(int)
                 # init_array2[i][j]=temp[1]
     # print("\n Similarity matrix using diff shit : \n")

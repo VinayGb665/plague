@@ -7,17 +7,18 @@ function generate(e){
     e.target.style.display = "none"
     $.post('/generate',{ass_name:ass_name,thresh:thresh,course:course},(data)=>{
         if(data){
-            
-            $("#mod_bod").html('');
-            spinner.style.display = "none"
-            $("#mod_bod").html(data);
-            $('.dataframe')[0].setAttribute('class','table table-borderless table-dark')
-            $('table')[0].setAttribute('border','0')
-            $('table')[0].setAttribute('width','400')
-            e.target.style.display = ""
-            $("#ModalExample").modal('toggle');
-            $("#generate_btn").css('display','')
-            disp_thresh(thresh)
+            $("#manager").html(data)
+            // $("#mod_bod").html('');
+            // spinner.style.display = "none"
+            // $("#mod_bod").html(data);
+             $('.dataframe')[0].setAttribute('class',' table-dark')
+             
+             $('table')[0].setAttribute('width','400')
+             
+            // e.target.style.display = ""
+            // $("#ModalExample").modal('toggle');
+            // $("#generate_btn").css('display','')
+             disp_thresh(thresh)
             
         }
     })

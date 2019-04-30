@@ -84,7 +84,7 @@ def delete_course(user,course_id):
     else:
         return 'False'
 
-def update_assignment(ass,file,user,course,thresh=10):
+def update_assignment(ass,file,user,course,thresh=50):
     db = client.user_db
     user_col = db.user_col
     courses_avail = user_col.find_one({'user':user})['courses']

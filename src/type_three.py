@@ -11,11 +11,11 @@ def compare_files(filename_one, filename_two):
 		file_two = open(utils.get_file_path(filename_two))
 
 		if filename_one.split(".")[1] == "py":
-			try:
-				results = pycode_ast.detect([file_one.read(), file_two.read()])
-			except:
-				print('Error: Non working python code')
-				return 60, 60
+			# try:
+			results = pycode_ast.detect([file_one.read(), file_two.read()])
+			# except:
+			# print('Error: Non working python code')
+			# return 60, 60
 			for _, ast_list in results:
 				total_count = sum(diff_info.total_count for diff_info in ast_list)
 				plagiarism_count = sum(diff_info.plagiarism_count for diff_info in ast_list)

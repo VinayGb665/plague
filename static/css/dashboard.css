@@ -104,3 +104,14 @@ body {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
+
+td{
+  overflow: hidden;
+  width: 280px; text-align: left; valign: top; whitespace: nowrap;
+}
+th{
+  font-size:small;
+}
+tr{
+  font-size:medium;
+}

@@ -1,4 +1,6 @@
 from __future__ import print_function
+
+
 def bubble_sort(collection):
     length = len(collection)
     for i in range(length-1):
@@ -9,6 +11,8 @@ def bubble_sort(collection):
                 collection[j], collection[j+1] = collection[j+1], collection[j]
         if not swapped: break  
     return collection
+
+
 if __name__ == '__main__':
     try:
         raw_input          

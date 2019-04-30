@@ -305,12 +305,12 @@ html_home_page = '''
 html_ass_page  = '''
 
 <div id="ModalExample" class="modal fade bd-example-modal-lg"" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: lighter" >
-    <div class="modal-dialog modal-lg modal-dialog-centered" >
-        <div class="modal-content" style="width:100%">
+    <div class="modal-dialog modal-lg vertical-align-center" >
+        <div class="modal-content "  style="width:900px">
             <div class="modal-header">
                 <h4 class="modal-title " style="font-weight: lighter">Heres the report generated</h4>
             </div>
-            <div class="modal-body" id="mod_bod">
+            <div class="modal-body" id="mod_bod" style="overflow-x:auto;">
             
                  
             </div>
