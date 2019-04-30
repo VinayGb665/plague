@@ -90,7 +90,7 @@ def our_table(x):
 html_mid = '''
 
   </head>
-  <body style="overflow-y: hidden;">
+  <body style="overflow-y: ;">
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">PESU</a>
   
@@ -133,7 +133,7 @@ html_mid = '''
     </nav>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" id="heading">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3" id="heading">
         <h1 class="h2" id="lil_head">Plagiarism score table</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
   
@@ -209,7 +209,6 @@ html_admin_page = '''
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
                       <input type="email" class="form-control" id="new_mail" aria-describedby="emailHelp" placeholder="Enter email">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                    
                   

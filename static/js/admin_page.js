@@ -18,10 +18,10 @@ function addnew(){
 
 }
 function hide_some(){   
-    document.getElementById('sidebar').style.display='none';
-    document.getElementById('heading').style.visibility='hidden';
+    document.getElementById('sidebar').style.visibility='hidden';
+    //document.getElementById('heading').style.visibility='hidden';
+    // document.getElementById('signout').style.visibility='hidden';
     $("#fail").css('display','none')
-    $($("ul")[1]).css('display','none')
 }
 
 
@@ -83,6 +83,9 @@ function remove_user(i){
 $(document).ready(()=>{
     hide_some();
     fetch_members_and_populate();
+    $("#username").html("Hi, "+sessionStorage.getItem('user'))
+    $("#lil_head").css('visibility','hidden')
+    console.log("dsdfds")
     
     
 })

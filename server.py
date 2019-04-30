@@ -161,15 +161,16 @@ def generate_report():
         html = handle_multiple([dir_name])
         update_scores(request.form['ass_name'],request.form['course'],html)
         return html
+
 @app.route('/signout',methods=['POST'])
 def logout():
     session.pop('username',None)
     session.pop('isadmin',None)
     return "True"
+
 @app.route('/assignments/<courseid>/<assname>',methods=['GET'])
 def myass(courseid,assname):
-    if courseid:
-        
+    if courseid:        
         return html_header+style('admin_page')+html_mid+html_ass_page+html_footer+script('list_subs_page')
     print('aaa')
 

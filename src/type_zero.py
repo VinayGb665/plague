@@ -24,4 +24,4 @@ def compare_files(filename_one, filename_two, type_one = False):
 	file_one_plagiarism_score = utils.get_plagiarism_percentage(number_of_lines_plagiarised * 2, len(file_one) + len(file_two))
 	file_two_plagiarism_score = utils.get_plagiarism_percentage(number_of_lines_plagiarised * 2, len(file_one) + len(file_two))
 
-	return file_one_plagiarism_percentage, file_two_plagiarism_percentage
+	return file_one_plagiarism_score, file_two_plagiarism_score

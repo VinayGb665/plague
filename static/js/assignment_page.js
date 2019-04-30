@@ -14,7 +14,8 @@ function generate(e){
              $('.dataframe')[0].setAttribute('class',' table-dark')
              
              $('table')[0].setAttribute('width','400')
-             
+             $('table')[0].setAttribute('border','1')
+             $('table')[0].setAttribute('style','border-collapse:none')
             // e.target.style.display = ""
             // $("#ModalExample").modal('toggle');
             // $("#generate_btn").css('display','')

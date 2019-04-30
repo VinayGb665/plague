@@ -3,20 +3,17 @@ import clang.enumerations
 import csv
 
 # set the config
-clang.cindex.Config.set_library_path("/usr/lib/llvm-6.0/lib")
+clang.cindex.Config.set_library_file('/usr/lib/x86_64-linux-gnu/libclang-6.0.so.1')
 
 class Tokenizer:
-    # creates the object, does the inital parse
     def __init__(self, path):
         self.index = clang.cindex.Index.create()
         self.tu = self.index.parse(path)
         self.path = self.extract_path(path)
 
-    # To output for split_functions, must have same path up to last two folders
     def extract_path(self, path):
         return "".join(path.split("/")[:-2])
 
-    # does futher processing on a literal token
     def process_literal(self, literal):
         cursor_kind = clang.cindex.CursorKind
         kind = literal.cursor.kind
@@ -42,11 +39,9 @@ class Tokenizer:
         # catch all other literals
         return ["LITERAL"]
 
-    # filters out unwanted punctuation
     def process_puntuation(self, punctuation):
         spelling = punctuation.spelling
 
-        # ignore certain characters
         if spelling in ["{", "}","(",")",";"]:
             return None
 
@@ -106,13 +101,10 @@ class Tokenizer:
                 result += [token.spelling]
 
         return result
-
-    # tokenizes the entire document
     def full_tokenize(self):
         cursor = self.tu.cursor
         return self.full_tokenize_cursor(cursor)
 
-    # returns the raw tokens in their original format
     def raw_tokenize(self):
         cursor = self.tu.cursor
 
@@ -123,13 +115,9 @@ class Tokenizer:
             results.append(token)
 
         return results
-
-    # returns a list of function name / function / filename tuples
     def split_functions(self, method_only):
         results = []
         cursor_kind = clang.cindex.CursorKind
-
-        # query all children for methods, and then tokenize each
         cursor = self.tu.cursor
         for c in cursor.get_children():
             filename = c.location.file.name if c.location.file != None else "NONE"
@@ -142,15 +130,12 @@ class Tokenizer:
                 results += [(name,tokens,filename)]
 
         return results
-
-# read in and process the CSV file (once)
 token_map = {}
 handle = open("src/token_map.csv", "r",encoding="utf8")
 csv_reader = csv.reader(handle)
 for row in csv_reader:
     token_map[row[0]] = chr(int(row[1]))
 
-# attempts to reduce each token to a single character
 def compress_tokens(tokens):
     result = []
 
