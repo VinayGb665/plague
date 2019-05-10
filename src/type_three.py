@@ -14,7 +14,7 @@ def explore(ast, a):
 	for i in ast:
 		explore(i, a)
 
-def c(i, text):
+def c_utility(text, index):
 	s = ""
 	for e in text:
 		x = e.strip()
@@ -22,20 +22,22 @@ def c(i, text):
 			s += x
 			s += " "
 	parser = c_parser.CParser()
-	# print(s)
 	ast = parser.parse(s, filename='<none>')
-	# print(s)
 	a = []
 	explore(ast, a)
-	write_to_file(a,str(i))
+	write_to_file(a, str(index))
 				
 def compare_files(filename_one, filename_two):
-	""" Receives filenames as parameters, compares the list of lines received
+	""" 
+		Receives filenames as parameters, compares the list of lines received
 		Returns the tuple containing the plagiarism percentage
 	"""
 	if utils.check_file(utils.get_file_path(filename_one)) and utils.check_file(utils.get_file_path(filename_two)):
-		file_one = open(utils.get_file_path(filename_one))
-		file_two = open(utils.get_file_path(filename_two))
+		a, b = utils.extract_files(filename_one, filename_two, True)
+		write_to_file(a, "1")
+		write_to_file(b, "2")
+		file_one = open(utils.get_file_path('type_three_dump_1.py'))
+		file_two = open(utils.get_file_path('type_three_dump_2.py'))
 
 		if filename_one.split(".")[1] == "py":
 			try:
@@ -50,10 +52,11 @@ def compare_files(filename_one, filename_two):
 				return file_one_plagiarism_percentage, file_one_plagiarism_percentage
 		else:
 			try:
-				text1, text2 = utils.extract_files(filename_one, filename_two, True)
-				c(1, text1)
-				c(2, text2)
+				text_one, text_two = utils.extract_files(filename_one, filename_two, True)
+				c_utility(text_one, 1)
+				c_utility(text_two, 2)
 				return type_zero.compare_files("type_three_dump_1.py", "type_three_dump_2.py")
+			
 			except:
 				print("Error: Non working c/cpp files")
 				return 70, 70

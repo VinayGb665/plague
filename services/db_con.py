@@ -116,14 +116,17 @@ def list_ass(user,course):
         arr.append(i)
 
     return arr
-def get_file_name_for_ass(assname,course):
+def get_file_name_for_ass(assname,course,file=True):
     db = client.user_db
     ass_col = db.ass_col
     print(assname,course)
-    result = ass_col.find_one({'ass':assname,'course':course},{'_id':0,'file':1})
-    print(result)
-    return result['file']
+    i = ass_col.find_one({'ass':assname,'course':course})
 
+    
+    if file:
+        return i['file']
+    else :
+        return {'sub_id':str(i['_id']),'sub_date':i['_id'].generation_time}
 
 
     # db = client['user_db']
@@ -146,8 +149,9 @@ def list_subs(course,ass):
     for i in res['submissions']:
         arr.append({'score':i['score'],'sub_id':str(i['_id']),'time':i['_id'].generation_time})
     
-    print(arr)
+    # print(arr)
     return arr
+
 def db_init():
     
     client.drop_database('user_db')

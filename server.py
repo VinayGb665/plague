@@ -158,7 +158,15 @@ def generate_report():
         print('Illi',request.form)
         dir_name = get_file_name_for_ass(request.form['ass_name'],request.form['course'])
         print(dir_name)
-        html = handle_multiple([dir_name])
+        sub_details = {'sub_name':request.form['ass_name'],'sub_course':request.form['course']}
+        results = get_file_name_for_ass(request.form['ass_name'],request.form['course'],file=False)
+        results['sub_by'] = session['username']
+        for key in sub_details:
+            results[key] = sub_details[key]
+        if(request.form['file']==1):
+            html = handle_multiple([dir_name],results)
+        else:
+            html = handle_multiple([dir_name],results,file=True )
         update_scores(request.form['ass_name'],request.form['course'],html)
         return html
 
@@ -173,6 +181,8 @@ def myass(courseid,assname):
     if courseid:        
         return html_header+style('admin_page')+html_mid+html_ass_page+html_footer+script('list_subs_page')
     print('aaa')
+
+
 
 if __name__ == '__main__':
     app.run(debug = True)

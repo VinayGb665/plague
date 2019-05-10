@@ -4,12 +4,12 @@ import functools
 import re
 
 re_comment_strings_for_c_and_cpp = {
-	"MULTI_LINES_COMMENT" : "/\*.*?\*/",
+	"MULTI_LINES_COMMENT" : ("/\*.*?\*/",),
 	"SINGLE_LINE_COMMENT" : "//.*?\n"
 }
 
 re_comment_strings_for_py = {
-	"MULTI_LINES_COMMENT" : "\'\'\'.*?\'\'\'",
+	"MULTI_LINES_COMMENT" : ("\'\'\'.*?\'\'\'", "\"\"\".*?\"\"\""),
 	"SINGLE_LINE_COMMENT" : "\#.*?\n"
 }
 
@@ -50,8 +50,9 @@ def get_file_path(filename):
 	return config.SOURCE_CODE_FILEPATH + filename
 
 def remove_comments_using_re(string, extension):
-	re_comment_strings = re_comment_strings_for_py if extension == 'py' else re_comment_strings_for_c_and_cpp 
-	string = re.sub(re.compile(re_comment_strings["MULTI_LINES_COMMENT"],re.DOTALL ) ,"\n" ,string) # remove all occurance streamed comments (/*COMMENT */) from string
+	re_comment_strings = re_comment_strings_for_py if extension == 'py' else re_comment_strings_for_c_and_cpp
+	for regex in  re_comment_strings["MULTI_LINES_COMMENT"]:
+		string = re.sub(re.compile(regex, re.DOTALL ) ,"\n" ,string) # remove all occurance streamed comments (/*COMMENT */) from string
 	string = re.sub(re.compile(re_comment_strings["SINGLE_LINE_COMMENT"] ) ,"\n" ,string) # remove all occurance singleline comments (//COMMENT\n ) from string
 	return string
 

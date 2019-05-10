@@ -1,11 +1,11 @@
-function generate(e){
+function generate(e,x){
     var ass_name = e.target.nextElementSibling.id;
     var thresh = e.target.nextElementSibling.value;
     var spinner = e.target.previousElementSibling;
     course=location.href.substr(location.href.lastIndexOf('/') + 1)
     spinner.style.display = ""
     e.target.style.display = "none"
-    $.post('/generate',{ass_name:ass_name,thresh:thresh,course:course},(data)=>{
+    $.post('/generate',{ass_name:ass_name,thresh:thresh,course:course,file:x},(data)=>{
         if(data){
             $("#manager").html(data)
             // $("#mod_bod").html('');
@@ -90,7 +90,7 @@ function render_user_html(name,thresh,course){
        <div class="spinner-border m-1" style="display:none"  role="status">
        <span class="sr-only">Loading...</span>
      </div>
-       <button id="generate_btn" class="btn btn-danger"  style="margin-right:20px">Generate</button>       
+       <button id="generate_btn" class="btn btn-danger bat1"  style="margin-right:20px">Generate</button>       
    <input style="width:50px;visibility:hidden;border:1px solid #1284e8;border-radius:10%;padding:3px;" value="`+thresh+`"  id="`+name+`"/>
        
        <a style="text-decoration:none" class="setter" href="#" ><img src="/static/images/settings.svg" class="bd-placeholder-img mr-2 rounded" width="22" height="22" role="img"></img></a>
@@ -108,8 +108,11 @@ function render_user_html(name,thresh,course){
 }
 
 function event_listeners(){
-$("button").click((e)=>{
-    generate(e);
+$(".bat1").click((e)=>{
+    generate(e,0);
+})
+$(".bat2").click((e)=>{
+    generate(e,1);
 })
 $(".setter").click((e)=>{
     e.preventDefault();
